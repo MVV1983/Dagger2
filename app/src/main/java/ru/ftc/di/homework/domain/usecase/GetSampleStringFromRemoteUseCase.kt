@@ -9,6 +9,10 @@ class GetSampleStringFromRemoteUseCase {
     //TODO: сделать так, чтобы repository не пересоздавался для каждого UseCase
     private val repository: SampleStringRepository = SampleStringRepositoryImpl()
 
-    operator fun invoke(): String =
-        "${repository.getFromRemote()}, repo hash = ${repository.hashCode()}"
+    operator fun invoke(): String {
+        val fromRemote = repository.getFromRemote()
+        val repoInstanceHash = repository.hashCode()
+
+        return "$fromRemote, repo hash = $repoInstanceHash"
+    }
 }

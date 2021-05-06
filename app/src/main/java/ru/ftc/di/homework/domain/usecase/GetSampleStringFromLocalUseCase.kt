@@ -9,6 +9,10 @@ class GetSampleStringFromLocalUseCase {
     //TODO: сделать так, чтобы repository не пересоздавался для каждого UseCase
     private val repository: SampleStringRepository = SampleStringRepositoryImpl()
 
-    operator fun invoke(): String =
-        "${repository.getFromLocal()}, repo hash = ${repository.hashCode()}"
+    operator fun invoke(): String {
+        val fromLocal = repository.getFromLocal()
+        val repoInstanceHash = repository.hashCode()
+
+        return "$fromLocal, repo hash = $repoInstanceHash"
+    }
 }
