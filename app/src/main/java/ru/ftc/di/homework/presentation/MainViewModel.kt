@@ -2,11 +2,10 @@ package ru.ftc.di.homework.presentation
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import ru.ftc.di.homework.domain.usecase.GetSampleStringFromLocalUseCase
 import ru.ftc.di.homework.domain.usecase.GetSampleStringFromRemoteUseCase
 
-class MainViewModel : ViewModel() {
+class MainViewModel {
     //TODO: DI
     private val getSampleStringFromLocalUseCase = GetSampleStringFromLocalUseCase()
     private val getSampleStringFromRemoteUseCase = GetSampleStringFromRemoteUseCase()

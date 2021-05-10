@@ -3,14 +3,14 @@ package ru.ftc.di.homework
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.viewModels
 import kotlinx.android.synthetic.main.activity_main.*
 import ru.ftc.di.homework.presentation.MainState
 import ru.ftc.di.homework.presentation.MainViewModel
 
 class MainActivity : AppCompatActivity() {
 
-	private val viewModel: MainViewModel by viewModels()
+	//TODO: DI
+	private val viewModel = MainViewModel()
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
