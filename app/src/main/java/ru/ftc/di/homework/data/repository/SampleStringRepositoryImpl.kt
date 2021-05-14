@@ -4,12 +4,16 @@ import ru.ftc.di.homework.data.datasource.SampleStringDataSource
 import ru.ftc.di.homework.data.datasource.SampleStringLocalDataSource
 import ru.ftc.di.homework.data.datasource.SampleStringRemoteDataSource
 import ru.ftc.di.homework.domain.repository.SampleStringRepository
+import javax.inject.Inject
+import javax.inject.Named
 
-class SampleStringRepositoryImpl : SampleStringRepository {
+class SampleStringRepositoryImpl @Inject
+constructor(
+    @Named("local") private val localDataSource: SampleStringDataSource,
+    @Named("remote") private val remoteDataSource: SampleStringDataSource
+) : SampleStringRepository {
 
     //TODO: DI
-    private val localDataSource: SampleStringDataSource = SampleStringLocalDataSource()
-    private val remoteDataSource: SampleStringDataSource = SampleStringRemoteDataSource()
 
     override fun getFromRemote(): String =
         remoteDataSource.get()

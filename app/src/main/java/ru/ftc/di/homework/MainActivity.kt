@@ -3,40 +3,48 @@ package ru.ftc.di.homework
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import kotlinx.android.synthetic.main.activity_main.*
+import ru.ftc.di.homework.databinding.ActivityMainBinding
 import ru.ftc.di.homework.presentation.MainState
 import ru.ftc.di.homework.presentation.MainViewModel
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
-	//TODO: DI
-	private val viewModel = MainViewModel()
+    //TODO: DI
+    @Inject
+    lateinit var viewModel: MainViewModel
+    private lateinit var binding: ActivityMainBinding
 
-	override fun onCreate(savedInstanceState: Bundle?) {
-		super.onCreate(savedInstanceState)
-		setContentView(R.layout.activity_main)
+    override fun onCreate(savedInstanceState: Bundle?) {
+		(application as MyApp).appComponent.inject(this)
+        super.onCreate(savedInstanceState)
+        //setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
-		loadButton.setOnClickListener {
-			viewModel.loadStrings()
-		}
 
-		viewModel.state.observe(this) { newState ->
-			renderState(newState)
-		}
-	}
+        binding.loadButton.setOnClickListener {
+            viewModel.loadStrings()
+        }
 
-	private fun renderState(state: MainState) {
-		when (state) {
+        viewModel.state.observe(this) { newState ->
+            renderState(newState)
+        }
+    }
+
+    private fun renderState(state: MainState) {
+        when (state) {
 			MainState.Loading -> {
 				Toast.makeText(this, "loading", Toast.LENGTH_SHORT).show()
-				remoteText.text = ""
-				localText.text = ""
+				binding.remoteText.text = ""
+				binding.localText.text = ""
 			}
 
 			is MainState.Success -> {
-				remoteText.text = state.remoteString
-				localText.text = state.localString
+				binding.remoteText.text = state.remoteString
+				binding.localText.text = state.localString
 			}
-		}
-	}
+        }
+    }
 }
