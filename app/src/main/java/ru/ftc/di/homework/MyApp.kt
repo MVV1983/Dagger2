@@ -8,7 +8,7 @@ import ru.ftc.di.homework.di.DaggerAppComponent
 open class MyApp : Application() {
     val appComponent: AppComponent by lazy(){
 
-        DaggerAppComponent.create() }
+        DaggerAppComponent.factory().create(applicationContext) }
 
 
 }
